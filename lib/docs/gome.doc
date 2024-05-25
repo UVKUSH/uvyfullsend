@@ -1,0 +1,90 @@
+import 'package:flutter/material.dart';
+
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Home Screen'),
+          actions: [
+            TextButton.icon(
+              onPressed: () {
+                // Handle "Unread" button press
+                // For example, you can navigate to the corresponding tab
+                DefaultTabController.of(context).animateTo(0);
+              },
+              icon: Icon(Icons.message),
+              label: Text('Unread'),
+              style: TextButton.styleFrom(primary: Colors.white),
+            ),
+            TextButton.icon(
+              onPressed: () {
+                // Handle "Hot" button press
+                DefaultTabController.of(context).animateTo(1);
+              },
+              icon: Icon(Icons.whatshot),
+              label: Text('Hot'),
+              style: TextButton.styleFrom(primary: Colors.white),
+            ),
+            TextButton.icon(
+              onPressed: () {
+                // Handle "New" button press
+                DefaultTabController.of(context).animateTo(2);
+              },
+              icon: Icon(Icons.new_releases),
+              label: Text('New'),
+              style: TextButton.styleFrom(primary: Colors.white),
+            ),
+          ],
+        ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                ),
+                child: Text(
+                  'Settings',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                  ),
+                ),
+              ),
+              ListTile(
+                title: Text('Option 1'),
+                onTap: () {
+                  // Handle option 1
+                },
+              ),
+              ListTile(
+                title: Text('Option 2'),
+                onTap: () {
+                  // Handle option 2
+                },
+              ),
+              // Add more options as needed
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            Center(
+              child: Text('Unread Content'),
+            ),
+            Center(
+              child: Text('Hot Content'),
+            ),
+            Center(
+              child: Text('New Content'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

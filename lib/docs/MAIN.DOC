@@ -1,0 +1,96 @@
+import 'package:flutter/material.dart';
+
+import 'pages/Dm.dart';
+import 'pages/camera.dart';
+import 'pages/date.dart';
+import 'pages/home/home.dart';
+import 'pages/profile.dart';
+
+void main() => runApp(const BottomNavigationBarExampleApp());
+
+class BottomNavigationBarExampleApp extends StatelessWidget {
+  const BottomNavigationBarExampleApp({Key? key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: const BottomNavigationBarExample(),
+    );
+  }
+}
+
+class BottomNavigationBarExample extends StatefulWidget {
+  const BottomNavigationBarExample({Key? key});
+
+  @override
+  _BottomNavigationBarExampleState createState() =>
+      _BottomNavigationBarExampleState();
+}
+
+class _BottomNavigationBarExampleState
+    extends State<BottomNavigationBarExample> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: _getPage(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home, size: 30), // Set the size of the icon
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.heart_broken_sharp,
+                size: 30), // Set the size of the icon
+            label: 'DATE',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.camera_alt_outlined,
+                size: 30), // Set the size of the icon
+            label: 'CAMERA',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message, size: 30), // Set the size of the icon
+            label: 'DM',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.headphones_rounded,
+                size: 30), // Set the size of the icon
+            label: 'PROFILE',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+
+  Widget _getPage(int index) {
+    switch (index) {
+      case 0:
+        return HomeScreen();
+      case 1:
+        return DateScreen();
+      case 2:
+        return CAMERAScreen();
+      case 3:
+        return DMScreen();
+      case 4:
+        return ProfileScreen();
+      default:
+        return Container();
+    }
+  }
+}

@@ -1,0 +1,136 @@
+import 'package:flutter/material.dart';
+
+import 'makepost.dart';
+
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Full Send', style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.yellow,
+        actions: [
+          TextButton.icon(
+            onPressed: () {
+              _tabController.animateTo(0);
+            },
+            icon: Icon(Icons.message),
+            label: Text('Unread'),
+            style: TextButton.styleFrom(primary: Colors.black),
+          ),
+          TextButton.icon(
+            onPressed: () {
+              _tabController.animateTo(1);
+            },
+            icon: Icon(Icons.whatshot),
+            label: Text('Hot'),
+            style: TextButton.styleFrom(primary: Colors.black),
+          ),
+          TextButton.icon(
+            onPressed: () {
+              _tabController.animateTo(2);
+            },
+            icon: Icon(Icons.new_releases),
+            label: Text('New'),
+            style: TextButton.styleFrom(primary: Colors.black),
+          ),
+        ],
+        iconTheme: IconThemeData(color: Colors.black),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.yellow,
+              ),
+              child: Text(
+                'Settings',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text('Option 1'),
+              onTap: () {
+                // Handle option 1
+              },
+            ),
+            ListTile(
+              title: Text('Option 2'),
+              onTap: () {
+                // Handle option 2
+              },
+            ),
+            // Add more options as needed
+          ],
+        ),
+      ),
+      body: DefaultTabController(
+        length: 3,
+        child: Column(
+          children: [
+            TabBar(
+              controller: _tabController,
+              tabs: [
+                Tab(text: 'Unread'),
+                Tab(text: 'Hot'),
+                Tab(text: 'New'),
+              ],
+              indicatorColor: Colors.transparent,
+              labelColor: Colors.transparent,
+              unselectedLabelColor: Colors.transparent,
+            ),
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  Center(child: Text('Unread Content')),
+                  Center(child: Text('Hot Content')),
+                  Center(child: Text('New Content')),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => MakePostPage()),
+          );
+        },
+        child: Icon(
+          Icons.add,
+          size: 36, // Set the desired size for the FAB icon
+        ),
+        backgroundColor: Colors.yellow, // Set FAB background color
+        foregroundColor: Colors.black, // Set FAB icon color
+      ),
+    );
+  }
+}
